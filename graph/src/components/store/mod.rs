@@ -950,3 +950,9 @@ impl AttributeNames {
         }
     }
 }
+
+#[derive(Debug, Clone)]
+pub struct PartialBlockPtr {
+    pub number: BlockNumber,
+    pub hash: Option<BlockHash>,
+}
