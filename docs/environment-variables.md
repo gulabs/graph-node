@@ -65,24 +65,11 @@ happens, subgraphs might process inconsistent data. Defaults to 250.
   generated from that are kept in memory until the entire file is done
   processing. This setting therefore limits how much memory a call to `ipfs.map`
   may use. (in bytes, defaults to 256MB)
+- `GRAPH_ENTITY_CACHE_SIZE`: Size of the entity cache, in kilobytes. Defaults to 10000 which is 10MB.
 - `GRAPH_MAX_IPFS_CACHE_SIZE`: maximum number of files cached in the the
   `ipfs.cat` cache (defaults to 50).
 - `GRAPH_MAX_IPFS_CACHE_FILE_SIZE`: maximum size of files that are cached in the
   `ipfs.cat` cache (defaults to 1MiB)
-- `GRAPH_ENTITY_CACHE_SIZE`: Size of the entity cache, in kilobytes. Defaults to 10000 which is 10MB.
-- `GRAPH_QUERY_CACHE_BLOCKS`: How many recent blocks per network should be kept
-   in the query cache. This should be kept small since the lookup time and the
-   cache memory usage are proportional to this value. Set to 0 to disable the cache.
-   Defaults to 1.
-- `GRAPH_QUERY_CACHE_MAX_MEM`: Maximum total memory to be used by the query
-   cache, in MB. The total amount of memory used for caching will be twice
-   this value - once for recent blocks, divided evenly among the
-   `GRAPH_QUERY_CACHE_BLOCKS`, and once for frequent queries against older
-   blocks.  The default is plenty for most loads, particularly if
-   `GRAPH_QUERY_CACHE_BLOCKS` is kept small.  Defaults to 1000, which
-   corresponds to 1GB.
-- `GRAPH_QUERY_CACHE_STALE_PERIOD`: Number of queries after which a cache
-  entry can be considered stale. Defaults to 100.
 - `GRAPH_MAX_API_VERSION`: Maximum `apiVersion` supported, if a developer tries to create a subgraph
   with a higher `apiVersion` than this in their mappings, they'll receive an error. Defaults to `0.0.6`.
 - `GRAPH_RUNTIME_MAX_STACK_SIZE`: Maximum stack size for the WASM runtime, if exceeded the execution
@@ -90,8 +77,6 @@ happens, subgraphs might process inconsistent data. Defaults to 250.
 
 ## GraphQL
 
-- `GRAPH_GRAPHQL_QUERY_TIMEOUT`: maximum execution time for a graphql query, in
-  seconds. Default is unlimited.
 - `SUBSCRIPTION_THROTTLE_INTERVAL`: while a subgraph is syncing, subscriptions
   to that subgraph get updated at most this often, in ms. Default is 1000ms.
 - `GRAPH_GRAPHQL_MAX_COMPLEXITY`: maximum complexity for a graphql query. See
@@ -123,6 +108,24 @@ happens, subgraphs might process inconsistent data. Defaults to 250.
   mechanism that is used to trigger updates on GraphQL subscriptions. When
   this variable is set to any value, `graph-node` will still accept GraphQL
   subscriptions, but they won't receive any updates.
+
+### GraphQL caching
+
+- `GRAPH_CACHED_SUBGRAPH_IDS`: when set to `*`, cache all subgraphs (default behavior). Otherwise, a comma-separated list of subgraphs for which to cache queries.
+- `GRAPH_GRAPHQL_QUERY_TIMEOUT`: maximum execution time for a graphql query, in
+  seconds. Default is unlimited.
+   in the query cache. This should be kept small since the lookup time and the
+   cache memory usage are proportional to this value. Set to 0 to disable the cache.
+   Defaults to 1.
+- `GRAPH_QUERY_CACHE_MAX_MEM`: Maximum total memory to be used by the query
+   cache, in MB. The total amount of memory used for caching will be twice
+   this value - once for recent blocks, divided evenly among the
+   `GRAPH_QUERY_CACHE_BLOCKS`, and once for frequent queries against older
+   blocks.  The default is plenty for most loads, particularly if
+   `GRAPH_QUERY_CACHE_BLOCKS` is kept small.  Defaults to 1000, which
+   corresponds to 1GB.
+- `GRAPH_QUERY_CACHE_STALE_PERIOD`: Number of queries after which a cache
+  entry can be considered stale. Defaults to 100.
 
 ## Miscellaneous
 
